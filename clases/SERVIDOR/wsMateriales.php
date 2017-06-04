@@ -24,6 +24,7 @@ $server->register('TraerTodos',
 					'encoded',                    		
 					'Trae Todos Los Usuarios'    			
 				);
+
 $server->register('TraerTodosProductos',                	
 					array(),  
 					array('return' => 'xsd:Array'),   
@@ -81,35 +82,57 @@ $server->register('InsertarFoto',
 				'Baja de Un Usuario por Parametros'    			
 			);
 
-$server->register('ObtenerTodosLosCds',                	
-					array(),  
-					array('return' => 'xsd:Array'),   
-					'urn:userWS',                		
-					'urn:userWS#ObtenerTodosLosCds',             
-					'rpc',                        		
-					'encoded',                    		
-					'Trae Todos Los Cds'    			
+$server->register('ObtenerLosMateriales',
+					array(),
+					array('return' => 'xsd:Array'),
+					'urn:userWS',
+					'urn:userWS#ObtenerLosMateriales',
+					'rpc',
+					'encoded',
+					'Trae Todos Los Cds'
 				);
 
+$server->register('ObtenerTodosLosCds',
+					array(),
+					array('return' => 'xsd:Array'),
+					'urn:userWS',
+					'urn:userWS#ObtenerTodosLosCds',
+					'rpc',
+					'encoded',
+					'Trae Todos Los Cds'
+				);
+
+/**
+* 
+*
+* @return	Lista de todos los productos 
+* @access	public
+*/
 function TraerTodosProductos()
 {
 	return producto::TraerTodos();
 }
-	
-function TraerTodos()
+
+/**
+* 
+*
+* @return	Traer la lista completa de materiales 
+* @access	public
+*/	
+function ObtenerLosMateriales()
 {
 	return Material::TraerTodos();
 }
 
-function ObtenerTodosLosCds(){
-	return Cd::TraerTodos();	
-}
-
+/**
+* 
+*
+* @return	Nada
+* @access	public
+*/
 function Alta($nombre,$precio,$tipo)
 {
-	return Material::InsertarMaterial($nombre,$precio,$tipo);
-		
-		
+	return Material::InsertarMaterial($nombre,$precio,$tipo);		
 		
 		// if($cantidad ==1)
 			// $flag = true;
@@ -121,6 +144,13 @@ function Alta($nombre,$precio,$tipo)
         //return $flag;
 
 }
+
+/**
+* 
+*
+* @return	
+* @access	public
+*/
 function Baja($id)
 {
 		$cantidad = Material::BorrarMaterial($id);
@@ -133,11 +163,16 @@ function Baja($id)
 		}
 			
         return $Mensaje;
-
 }
+
+/**
+* 
+*
+* @return	
+* @access	public
+*/
 function Modificar($Codigo,$Nombre,$Precio,$Tipo)
 {
-
 		$cantidad = Material::Modificar($Codigo,$Nombre,$Precio,$Tipo);
 		
 		if($cantidad ==1)
@@ -151,10 +186,22 @@ function Modificar($Codigo,$Nombre,$Precio,$Tipo)
 	
 }
 
+/**
+* 
+*
+* @return	
+* @access	public
+*/
+function ObtenerTodosLosCds(){
+	return Cd::TraerTodos();	
+
+}
+
 
 $HTTP_RAW_POST_DATA = file_get_contents("php://input");
 	
 $server->service($HTTP_RAW_POST_DATA);
+
 
 
 ?>

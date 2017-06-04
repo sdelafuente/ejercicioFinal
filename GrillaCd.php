@@ -15,18 +15,15 @@
 <body>
 	<div class="page-header" >
 	 
-	<?php
+<?php
 if(!isset($_SESSION))
 	session_start();
 
 	Error_reporting(0);
 		require_once('clases/lib/nusoap.php');
-		//require_once('clases/AccesoDatos.php');
 		require_once('clases/Cd.php');
-		//require_once("clases/Materiales.php");
-		//require_once("clases/Usuario.php");
 		
-		$host = 'http://localhost:8080/parcial/clases/SERVIDOR/wsMateriales.php';		
+		$host = 'http://localhost:8080/ejercicioFinal/clases/SERVIDOR/wsMateriales.php';
 		$client = new nusoap_client($host . '?wsdl');
 
 		$err = $client->getError();
@@ -36,8 +33,8 @@ if(!isset($_SESSION))
 		}
 
 		//INVOCO AL METODO DE MI WS		
-		//$cds = $client->call('ObtenerTodosLosCds', array());
-		$cds = Cd::TraerTodos();
+		$cds = $client->call('ObtenerTodosLosCds');
+		//$cds = Cd::TraerTodos();
 
 		if ($client->fault) {
 			echo '<h2>ERROR AL INVOCAR METODO:</h2><pre>';
@@ -49,6 +46,7 @@ if(!isset($_SESSION))
 				echo '<h2>ERROR EN EL CLIENTE:</h2><pre>' . $err . '</pre>';
 			} 
 			else {
+				echo '<h2>Uso WS Obtener CDs</h2>';	
 				echo '<br/>';
 				echo "<table border='1' width='70%' Style='color:white;'>
 						<tr>

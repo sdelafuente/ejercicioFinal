@@ -3,6 +3,9 @@ include_once("AccesoDatos.php");
 
 class Material
 {
+    /*
+      Atributos 
+    */
 	public $Codigo;
  	public $Nombre;
   	public $Precio;
@@ -19,10 +22,9 @@ class Material
 		$consulta = $objetoAccesoDato->RetornarConsulta($sql);
 		$consulta->execute();
 
-		return $consulta->fetchall(PDO::FETCH_BOTH);
-
-		
+		return $consulta->fetchall();	        
 	}
+
 	 public  static function InsertarMaterial($nombre,$precio,$tipo)
 	 {
 		   $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
@@ -37,6 +39,7 @@ class Material
 				
 
 	 }
+
 	 public static function BorrarMaterial($id)
 	 {
 	 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
