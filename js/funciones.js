@@ -104,7 +104,7 @@ function CargarFormNuevoMaterial() {
 
 function AgregarMaterial() {
    var pagina = "./administracion.php";
-    var id = $("#hdnIdUsuario").val();
+    var id = $("#hdnIdMaterial").val();
 	var nombre = $("#txtNombre").val();
 	var precio = $("#txtPrecio").val();
 	var tipo = $("#cboTipo").val();	
@@ -120,7 +120,7 @@ function AgregarMaterial() {
         type:"post",
         dataType:"text",
         data:{
-                queMuestro : "ALTA_USUARIO", 
+                queMuestro : "ALTA_MATERIAL", 
                 material : material
            }}
     )

@@ -27,17 +27,16 @@ class Material
 
 	 public  static function InsertarMaterial($nombre,$precio,$tipo)
 	 {
-		   $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         
-       $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into Materiales (Nombre, Precio,Tipo)values(:nombre,:precio,:tipo)");
+        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT into materiales (nombre, precio,tipo)values(:nombre,:precio,:tipo)");
 
         $consulta->bindValue(':nombre', $nombre, PDO::PARAM_STR);
         $consulta->bindValue(':precio', $precio, PDO::PARAM_INT);
         $consulta->bindValue(':tipo', $tipo, PDO::PARAM_STR);
         $consulta->execute();
-		 return $objetoAccesoDato->RetornarUltimoIdInsertado();;
-				
-
+		
+        return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	 }
 
 	 public static function BorrarMaterial($id)

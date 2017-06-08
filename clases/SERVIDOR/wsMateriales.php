@@ -9,6 +9,21 @@ $server = new nusoap_server();
 
 $server->configureWSDL('WEB Server Usuarios', 'urn:userWS'); 
 
+$server->wsdl->addComplexType(
+    'Material',
+    'complexType',
+    'struct',
+    'all',
+    '',
+    array(
+        //'id_user' => array('name' => 'id_user', 'type' => 'xsd:int'),
+        'nombre' => array('name' => 'nombre', 'type' => 'xsd:string'),
+        'tipo' => array('name' => 'tipo', 'type' => 'xsd:string'),
+        'precio' => array('name' => 'precio', 'type' => 'xsd:int')
+    )
+);
+
+
 $server->register('Ingresar',                	// METODO
 					array('usuario' => 'xsd:string',
 					'clave' => 'xsd:string', 'correo' => 'xsd:string'),
@@ -44,9 +59,7 @@ $server->register('TraerUno',
 					'Trae Todos Los Usuarios'    			
 				);
 $server->register('Alta',                	
-					array('nombre' => 'xsd:string',
-							'precio' => 'xsd:int',
-							'tipo' => 'xsd:string'),  
+					array('nombre' => 'xsd:string','precio' => 'xsd:int','tipo' => 'xsd:string'),  
 					array('return' => 'xsd:int'),   
 					'urn:userWS',                		
 					'urn:userWS#Alta',             
@@ -81,7 +94,17 @@ $server->register('InsertarFoto',
 				'encoded',                    		
 				'Baja de Un Usuario por Parametros'    			
 			);
-
+$server->register('AltaMaterial',                	
+					array('nombre' => 'xsd:string',
+							'precio' => 'xsd:int',
+							'tipo' => 'xsd:string'),  
+					array('return' => 'xsd:int'),   
+					'urn:userWS',                		
+					'urn:userWS#AltaMaterial',             
+					'rpc',                        		
+					'encoded',                    		
+					'Alta de Un Producto'    			
+				);
 $server->register('ObtenerLosMateriales',
 					array(),
 					array('return' => 'xsd:Array'),
@@ -130,7 +153,7 @@ function ObtenerLosMateriales()
 * @return	Nada
 * @access	public
 */
-function Alta($nombre,$precio,$tipo)
+function AltaMaterial($nombre,$precio,$tipo)
 {
 	return Material::InsertarMaterial($nombre,$precio,$tipo);		
 		
