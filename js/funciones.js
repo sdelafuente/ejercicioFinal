@@ -34,6 +34,7 @@ function Enunciado() {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 }
+
 function MostrarGrilla() {
 var pagina = "./administracion.php";
 
@@ -100,25 +101,31 @@ function CargarFormNuevoMaterial() {
     });
 
 }
+
 function AgregarMaterial() {
    var pagina = "./administracion.php";
     var id = $("#hdnIdUsuario").val();
 	var nombre = $("#txtNombre").val();
 	var precio = $("#txtPrecio").val();
-	var tipo = $("#cboTipo").val();
-	
-	var material = {};
-	
+	var tipo = $("#cboTipo").val();	
+	var material = {};	
 	
     material.Codigo = id;
 	material.Nombre= nombre;
 	material.Precio = precio;
 	material.Tipo= tipo;
 	
-	$.ajax({url:pagina, type:"post",dataType:"text", data:{queMuestro : "ALTA_USUARIO", material : material}})
-	
+	$.ajax({
+        url:pagina, 
+        type:"post",
+        dataType:"text",
+        data:{
+                queMuestro : "ALTA_USUARIO", 
+                material : material
+           }}
+    )
 	.done(function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
-	alert(objJson);
+	   alert(objJson);
 		// var objJsonPaseado = JSON.parse(objJson);
 		
         // alert(objJsonPaseado.Mensaje);
@@ -126,7 +133,6 @@ function AgregarMaterial() {
             // alert(objJsonPaseado.Mensaje);
             // return;
         // }
-
 
         $("#divAbm").html("");
         MostrarGrilla();
@@ -139,9 +145,8 @@ function AgregarMaterial() {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     }); 	
 
-
-
 }
+
 function EditarUsuario(material) {//#sin case
 
 	material.accion="Modificar";

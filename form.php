@@ -1,38 +1,34 @@
 <?php
-
-require_once("verificar_sesion.php");
-
-require_once("clases/AccesoDatos.php");
-require_once("clases/Usuario.php");
-
-require_once("clases/Materiales.php");
+    require_once("verificar_sesion.php");
+    require_once("clases/AccesoDatos.php");
+    require_once("clases/Usuario.php");
+    require_once("clases/Materiales.php");
 
 
-if (!isset($material)) {//alta
-    $Nombre = "";
-    $Precio = "";
-	$Tipo = "";
-    $Codigo = "";
-    $botonClick = "AgregarMaterial()";
-    $botonTitulo = "Guardar";
-} else {
-    $Nombre = $material->Nombre;
-    $Precio = $material->Precio;
-    $Codigo = $material->Codigo;
-    $Tipo =   $material->Tipo;
-	
-    if(isset($material->accion)){
-        $botonClick = $material->accion == "Modificar" ? "ModificarMaterial()" : "EliminarMaterial()";    
-        $botonTitulo = $material->accion;
+    if (!isset($material)) {//alta
+        $Nombre = "";
+        $Precio = "";
+    	$Tipo = "";
+        $Codigo = "";
+        $botonClick = "AgregarMaterial()";
+        $botonTitulo = "Guardar";
+    } else {
+        $Nombre = $material->Nombre;
+        $Precio = $material->Precio;
+        $Codigo = $material->Codigo;
+        $Tipo =   $material->Tipo;
+    	
+        if(isset($material->accion)){
+            $botonClick = $material->accion == "Modificar" ? "ModificarMaterial()" : "EliminarMaterial()";    
+            $botonTitulo = $material->accion;
+        }
+        else {
+            $botonClick = "ModificarMaterial()";    
+            $botonTitulo = "Editar Material";        
+        }
     }
-    else {
-        $botonClick = "ModificarMaterial()";    
-        $botonTitulo = "Editar Material";        
-    }
-}
 
-$perfiles = Material::TraerTipos();
-
+    $perfiles = Material::TraerTipos();
 
 
 ?>

@@ -75,7 +75,5 @@ foreach ($arrayDeMateriales as $material) {
 </table>
 
 <?php 	
-//}else	{
-//		echo "<h4 class='widgettitle'>No estas registrado</h4>";
-//	}
+
 ?>
