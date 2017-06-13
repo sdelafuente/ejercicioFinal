@@ -6,7 +6,7 @@ $user = $_SESSION["Usuario"];
 ?>
 <html>
     <head>
-        <title>PROGRAMACION III</title> 
+        <title>ABM Materiales</title> 
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,14 +45,16 @@ $user = $_SESSION["Usuario"];
 				echo "<a class='btn btn-danger animated bounceInLeft' href='#' onclick='Logout()'><span class='glyphicon glyphicon-off'></span>LogOut&nbsp;</a>";
               
 			  ?>
-                <span id="spanDatos" class="animated bounceInRight" style='margin-top:-10px' ><h3><?php echo $objUser->nombre . " - " . $objUser->perfil; ?>&nbsp;&nbsp;</h3></span>
+                <span id="spanDatos" class="animated bounceInRight" style='margin-top:-10px' >
+                    <h3><?php echo $objUser->nombre . " - " . $objUser->perfil; ?></h3>
+                </span>
             </div>
             <h1 style="font-size:28px">SEGUNDO PARCIAL</h1>
             <hr/>
             <div id="divAbm"  style='border-style:none;float:left;width:30%'>
 			 <?php
 					if(!isset($_COOKIE))
-						echo $_COOKIE['miCookie'];				
+						echo $_COOKIE['user_mail'];				
                ?>
             </div>
             <div id="divGrilla"  style='border-style:none;float:right;width:70%'>

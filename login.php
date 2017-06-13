@@ -1,11 +1,56 @@
 <?php
+
+class Login {
+
+    static function ValidarLogin( $obj ) {
+
+        //Usuarios 
+        $db_txt = 'usuarios.txt';       
+        
+        //Verifico que exista el archivo de usuarios
+        if (is_file($db_txt)) {
+            //Capturos todos los registros del archivo
+            $lineas = file($db_txt);
+
+            //Loop 
+            foreach ($lineas as $linea) {
+                //Separo en una lista los datos de los usuarios
+                list($user,$pass,$perfil) = explode("=>",trim($linea),3);
+
+                //Verifico que el username y la password sean texto
+                if (is_string($user)  &&  is_string($pass)) {
+                    
+                    //Si el usuario que cargue pertenece a la lista, lo agrego a una cookie
+                    if ( $user == $obj->email && $obj->pass) {
+                        
+                        //Set la Cookie
+                        setcookie("user_mail",$obj->email ,  time()+30 , '/');
+                        
+                        $obj->nombre = strstr($obj->email, '@', true);
+                        $obj->perfil = $perfil;
+                        
+                        $_SESSION['Usuario']= json_encode($obj);                        
+                    }
+                }
+            }
+
+        } else {
+            $obj->Exito = false;
+        }   
+
+        return $obj;
+    }
+}
+
 //Verifico la session
-if(!isset($_SESSION))
+if (!isset($_SESSION)) {
     //Start Session     
-	session_start();
-   if(!isset($_SESSION['appLucasRodriguezSession_on'])){
+    session_start();
+   if (!isset($_SESSION['appLucasRodriguezSession_on'])) {
       header("location:frmLogin.php");
    }
+
+}
     require_once('clases/lib/nusoap.php');
 	require_once('clases/Usuario.php');
 	require_once('clases/AccesoDatos.php');
@@ -22,34 +67,6 @@ if(!isset($_SESSION))
 	$obj->nombre ="";
 	$obj->perfil = "";
 
-    //Usuarios 
-	$db_txt = 'usuarios.txt';
-	
-
-		
-	
-	
-if(is_file($db_txt)) {
-    //
-	$lineas = file($db_txt);
-	foreach($lineas as $linea) {
-	    list($user,$pass,$perfil) = explode("=>",trim($linea),3);
-		if(is_string($user)  &&  is_string($pass)) {
-			
-			if( $user == $obj->email && $obj->pass) {
-				
-                setcookie("miCookie",$unUsuario->email ,  time()+30 , '/');
-				
-                $obj->nombre = strstr($unUsuario->email, '@', true);
-				$obj->perfil = $perfil;
-				
-                $_SESSION['Usuario']= json_encode($obj);
-					
-			}
-        }
-    }
-} else {
-        $obj->Exito = false;
-   }	
-		
-echo json_encode($obj);
+    	
+    //Devuelvo el Objeto 
+    echo json_encode(Login::ValidarLogin($obj));

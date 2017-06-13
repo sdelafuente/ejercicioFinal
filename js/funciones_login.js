@@ -4,8 +4,12 @@
 function Login() {
 
     var pagina = "./login.php";
-
     var usuario = {Email: $("#email").val(), Password: $("#password").val()};
+
+    if (!validarLogin(usuario)) {
+        return false;
+    }
+        
 
     $.ajax({
         type: 'POST',
@@ -15,13 +19,12 @@ function Login() {
             usuario: usuario
         }
     })
-    .done(function (objJson) {
+    .then( function (objJson) {
 	
 		
         window.location.href = "index.php";
 	
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
+    }, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 
@@ -42,17 +45,43 @@ function cargarUsuario(perfil) {
         dataType: "text",
         data: { usuario: usuario }
     })
-    .done(function (objJson) {    
+    .then( function (objJson) {    
         var user = JSON.parse(objJson);
 
         $("#email").val(user.mail);
         $("#password").val(user.contrasena);
         Login();       
     
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
+    }, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 
+}
 
+/*
+    Validar Email y Contraseña
+*/
+function validarLogin(objJson) {
+    var error = true;
+    var esMail = objJson.Email.indexOf("@");
+    var esNumero = !isNaN(objJson.Password)
+
+    if(esMail < 0) {
+        alert("Ingrese un mail correctamente.");
+        error = false;
+    }
+
+    if(!esNumero) {
+        alert("La contraseña debe ser numerica");
+        error = false;
+    }
+
+    if(esNumero) {
+        if(objJson.Password.length > 4){
+            alert("La contraseña no puede superar los 4 digitos.");
+            error = false;
+        }
+
+    }
+    return error;
 }
