@@ -1,3 +1,4 @@
+
 function Enunciado() {
 
     var pagina = "./enunciado.php";
@@ -172,14 +173,15 @@ function EditarUsuario(material) {//#sin case
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 }
-function ModificarMaterial() {//#3a
-  if (!confirm("Modificar USUARIO?")) {
+function ModificarMaterial(material) {//#3a
+  if (!confirm("Modificar material?")) {
 		//si es  Cancelar
         return;
     }
 	//si es aceptar
-	
-    var pagina = "./administracion.php";
+	material.accion="Modificar";
+    alert(material);
+    /*var pagina = "./administracion.php";
     var Codigo = $("#hdnIdMaterial").val();
 	var Nombre = $("#txtNombre").val();
 	var Precio = $("#txtPrecio").val();
@@ -190,21 +192,26 @@ function ModificarMaterial() {//#3a
 	material.Nombre= Nombre;
 	material.Precio = Precio;
 	material.Tipo  = Tipo;
+    */
 	
-	$.ajax({url:pagina, type:"post",dataType:"text", data:{queMuestro : "MODIFICAR_USUARIO", material : material}})
+	$.ajax({
+        url:pagina, 
+        type:"post",
+        dataType:"text", 
+        data:{
+                queMuestro : "MODIFICAR_MATERIAL", 
+                material : material
+             }
+        }).then( function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
 	
-	.done(function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
-	
-		// var objJsonPaseado = JSON.parse(objJson);
-		// alert(objJsonPaseado);
+		 var objJsonPaseado = JSON.parse(objJson);
+		alert(objJsonPaseado);
        
         // if (!objJsonPaseado.Exito) {
-			        // MostrarGrilla();
-
+			// MostrarGrilla();
             // alert(objJsonPaseado.Mensaje);
             // return;
         // }
-
 
         $("#divAbm").html("");
         MostrarGrilla();
@@ -212,20 +219,18 @@ function ModificarMaterial() {//#3a
 		// alert(objJsona.Mensaje);
          // console.log("recibirJSON()");
          // console.log(resultado);
-	})
-	.fail(function (jqXHR, textStatus, errorThrown) {
+	}, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     }); 	
-
 
  
 
 }
 
 
-function EliminarUsuario(objMaterial) {//#3b
+function EliminarMaterial(objMaterial) {//#3b
 
-    if (!confirm("Eliminar USUARIO?")) {
+    if (!confirm("Eliminar material?")) {
         return;
     }
 
@@ -260,13 +265,14 @@ function Logout() {//#5
     $.ajax({
         type: 'POST',
         url: pagina,
-        dataType: "html",
+        dataType: "text",
         data: {
             queMuestro: "LOGOUT"
         },
         async: true
     })
-    .done(function (html) {
+    .done(function (objJson) {
+
 
         window.location.href = "login.php";
 

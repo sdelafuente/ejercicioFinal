@@ -1,3 +1,10 @@
+<?php 
+if(isset($_COOKIE["user_mail"]))
+    $mail = $_COOKIE["user_mail"];
+else
+    $mail = "";
+
+ ?>
 <html>
     <head>
         <title>ABM Materiales</title>
@@ -20,12 +27,13 @@
                 <h1>LOGIN</h1>
 
                 <form id="FormIngreso" method="post">
-                    <input type="text" id="email" placeholder="E-mail" value="" />
+                    <input type="text" id="email" placeholder="E-mail" value="<?php echo $mail; ?>" />
                     <input type="password" id="password" placeholder="Password" value="" />					
                     <input type="button" class="btn btn-danger" value="Log In" onclick="Login()" />
                     <input type="button" class="btn btn-danger" value="Admin" onclick="cargarUsuario('admin')" />
                     <input type="button" class="btn btn-danger" value="Vendedor" onclick="cargarUsuario('vendedor')" />
                     <input type="button" class="btn btn-danger" value="Comprador" onclick="cargarUsuario('comprador')" />
+                    <input type="button" class="btn btn-danger" value ="delete cookie" onclick= "delete_cookie('user_mail');"/>                    
                 </form>
             </div>
             <div style="text-align:center">

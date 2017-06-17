@@ -26,9 +26,11 @@ class Login {
                         //Set la Cookie
                         setcookie("user_mail",$obj->email ,  time()+30 , '/');
                         
+                        //Cargo el nombre del user
                         $obj->nombre = strstr($obj->email, '@', true);
                         $obj->perfil = $perfil;
                         
+                        //Super Variable de session
                         $_SESSION['Usuario']= json_encode($obj);                        
                     }
                 }
