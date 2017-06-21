@@ -21,7 +21,7 @@ else
     <body>
         <div class="container">
             <div class="page-header">
-                <!--h1>SEGUNDO PARCIAL</h1-->      
+                <!--h1>   </h1-->      
             </div>
             <div class="CajaInicio animated bounceInRight">
                 <h1>LOGIN</h1>

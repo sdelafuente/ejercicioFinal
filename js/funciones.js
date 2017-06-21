@@ -69,11 +69,10 @@ var pagina = "./administracion.php";
         },
         async: true
     })
-    .done(function (html) {
+    .then(function (html) {
 
         $("#divGrilla").html(html);
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
+    }, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 
@@ -92,13 +91,14 @@ function CargarFormNuevoMaterial() {
         },
         async: true
     })
-    .done(function (html) {
+    .then(
+        function (html) {
 
-        $("#divAbm").html(html);
-        $('#cboTipo > option[value="usuario"]').attr('selected', 'selected');
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
+            $("#divAbm").html(html);
+            $('#cboTipo > option[value="usuario"]').attr('selected', 'selected');
+        }
+       ,function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 
 }
@@ -125,7 +125,7 @@ function AgregarMaterial() {
                 material : material
            }}
     )
-	.done(function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
+	.then( function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
 	   alert(objJson);
 		// var objJsonPaseado = JSON.parse(objJson);
 		
@@ -141,47 +141,21 @@ function AgregarMaterial() {
 		// alert(objJsona.Mensaje);
          // console.log("recibirJSON()");
          // console.log(resultado);
-	})
-	.fail(function (jqXHR, textStatus, errorThrown) {
+	}, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     }); 	
 
 }
 
-function EditarUsuario(material) {//#sin case
-
-	material.accion="Modificar";
-	
-    var pagina = "./administracion.php";
-	
-    $.ajax({
-        type: 'POST',
-        url: pagina,
-        dataType: "html",
-        data: {
-            queMuestro: "FORM",
-            material: material
-        },
-        async: true
-    })
-    .done(function (html) {
-
-        $("#divAbm").html(html);
-
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
-    });
-}
-function ModificarMaterial(material) {//#3a
+function ModificarMaterial() {//#3a
   if (!confirm("Modificar material?")) {
 		//si es  Cancelar
         return;
     }
 	//si es aceptar
-	material.accion="Modificar";
-    alert(material);
-    /*var pagina = "./administracion.php";
+	//material.accion="Modificar";
+    //alert(material);
+    var pagina = "./administracion.php";
     var Codigo = $("#hdnIdMaterial").val();
 	var Nombre = $("#txtNombre").val();
 	var Precio = $("#txtPrecio").val();
@@ -192,7 +166,7 @@ function ModificarMaterial(material) {//#3a
 	material.Nombre= Nombre;
 	material.Precio = Precio;
 	material.Tipo  = Tipo;
-    */
+    
 	
 	$.ajax({
         url:pagina, 
@@ -228,6 +202,33 @@ function ModificarMaterial(material) {//#3a
 }
 
 
+function Modificar(objMaterial) {//#3b
+
+    var pagina = "./administracion.php";
+
+    objMaterial.accion ='Modificar';
+
+    $.ajax({
+        type: 'POST',
+        url: pagina,
+        dataType: "html",
+        data: {
+            queMuestro: "FORM",
+            material: objMaterial
+        },
+        async: true
+    })
+   .then( function (html) {
+        
+        //CargarFormNuevoMaterial();
+        $("#divAbm").html(html);
+
+        },function (jqXHR, textStatus, errorThrown) {
+        alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
+    });     
+ 
+}
+
 function EliminarMaterial(objMaterial) {//#3b
 
     if (!confirm("Eliminar material?")) {
@@ -248,16 +249,17 @@ function EliminarMaterial(objMaterial) {//#3b
         },
         async: true
     })
-   .done(function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
+   .then( function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
 		alert(objJson);
         MostrarGrilla();
 		
-		})
-	.fail(function (jqXHR, textStatus, errorThrown) {
+		}, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     }); 	
  
 }
+
+
 function Logout() {//#5
 
     var pagina = "./administracion.php";
@@ -271,13 +273,12 @@ function Logout() {//#5
         },
         async: true
     })
-    .done(function (objJson) {
+    .then(function (objJson) {
 
 
         window.location.href = "login.php";
 
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
+    },function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 

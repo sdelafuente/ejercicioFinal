@@ -6,17 +6,20 @@
 
 
     if (!isset($material)) {//alta
+
         $Nombre = "";
         $Precio = "";
     	$Tipo = "";
         $Codigo = "";
         $botonClick = "AgregarMaterial()";
         $botonTitulo = "Guardar";
+        
     } else {
-        $Nombre = $material->Nombre;
-        $Precio = $material->Precio;
-        $Codigo = $material->Codigo;
-        $Tipo =   $material->Tipo;
+
+        $Nombre = $material->nombre;
+        $Precio = $material->precio;
+        $Codigo = $material->codigo;
+        $Tipo =   $material->tipo;
     	
         if(isset($material->accion)){
             $botonClick = $material->accion == "Modificar" ? "ModificarMaterial()" : "EliminarMaterial()";    
@@ -41,7 +44,7 @@
     <select id="cboTipo" >
         <?php
         foreach ($perfiles AS $p) {
-            $miTipo = isset($material->Tipo) ? $material->Tipo : "";
+            $miTipo = isset($material->tipo) ? $material->tipo : "";
             $selected = $miTipo == $p["Tipo"] ? "selected" : "";
             echo "<option value='" . $p["Tipo"] . "' " . $selected . ">" . $p["Tipo"] . "</option>";
         }

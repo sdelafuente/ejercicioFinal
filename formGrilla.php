@@ -54,7 +54,7 @@ foreach ($arrayDeMateriales as $material) {
 	
 	$objMaterial = json_encode($objMaterial);
 	
-	$botones= "<td><a onclick='ModificarMaterial($objMaterial)' class='btn btn-warning'> <span class='glyphicon glyphicon-pencil'>&nbsp;</span>Editar</a></td>
+	$botones= "<td><a onclick='Modificar($objMaterial)' class='btn btn-warning'> <span class='glyphicon glyphicon-pencil'>&nbsp;</span>Editar</a></td>
 		<td><a onclick='EliminarMaterial($objMaterial)' class='btn btn-danger'>   <span class='glyphicon glyphicon-trash'>&nbsp;</span>  Borrar</a></td>
 			";
 	$grilla = "<td>".$material['codigo']."</td>
