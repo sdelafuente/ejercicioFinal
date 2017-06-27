@@ -4,7 +4,7 @@
 //{
 
 //require_once("clases/AccesoDatos.php");
-//require_once("clases/Usuario.php");
+
 require_once("clases/Materiales.php");
 require_once('clases/lib/nusoap.php');
 	
@@ -24,8 +24,6 @@ $user = $_SESSION["Usuario"];
 
 $miUser = json_decode($user);
 
-//var_dump($arrayDeMateriales);
-//die();
 ?>
 <table class="table"  style=" background-color: beige;color:black;">
 	<thead>

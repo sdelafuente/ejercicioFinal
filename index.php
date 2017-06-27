@@ -53,7 +53,7 @@ $user = $_SESSION["Usuario"];
             <div id="divAbm"  style='border-style:none;float:left;width:30%'>
 			 <?php
 					if(isset($_COOKIE['user_mail']))
-						echo $_COOKIE['user_mail'];				
+						//echo $_COOKIE['user_mail'];				
                ?>
             </div>
             <div id="divGrilla"  style='border-style:none;float:right;width:70%'>

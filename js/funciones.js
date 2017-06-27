@@ -57,6 +57,9 @@ var pagina = "./administracion.php";
     });
 }
 
+/* 
+    MostrarCd
+*/
 function MostrarCd() {
 var pagina = "./administracion.php";
 
@@ -126,7 +129,7 @@ function AgregarMaterial() {
            }}
     )
 	.then( function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
-	   alert(objJson);
+	   
 		// var objJsonPaseado = JSON.parse(objJson);
 		
         // alert(objJsonPaseado.Mensaje);
@@ -137,18 +140,15 @@ function AgregarMaterial() {
 
         $("#divAbm").html("");
         MostrarGrilla();
-		// var objJsona = JSON.parse(objJson);
-		// alert(objJsona.Mensaje);
-         // console.log("recibirJSON()");
-         // console.log(resultado);
+
 	}, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     }); 	
 
 }
 
-function ModificarMaterial() {//#3a
-  if (!confirm("Modificar material?")) {
+function ModificarMaterial() {
+  if (!confirm("Modificar este material?")) {
 		//si es  Cancelar
         return;
     }
@@ -179,7 +179,6 @@ function ModificarMaterial() {//#3a
         }).then( function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
 	
 		 var objJsonPaseado = JSON.parse(objJson);
-		alert(objJsonPaseado);
        
         // if (!objJsonPaseado.Exito) {
 			// MostrarGrilla();
@@ -189,15 +188,10 @@ function ModificarMaterial() {//#3a
 
         $("#divAbm").html("");
         MostrarGrilla();
-		// var objJsona = JSON.parse(objJson);
-		// alert(objJsona.Mensaje);
-         // console.log("recibirJSON()");
-         // console.log(resultado);
+
 	}, function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
-    }); 	
-
- 
+    }); 	 
 
 }
 
@@ -237,14 +231,14 @@ function EliminarMaterial(objMaterial) {//#3b
 
     var pagina = "./administracion.php";
 
-    var codigoBorrar = objMaterial.Codigo;
+    var codigoBorrar = objMaterial.codigo;
 	
     $.ajax({
         type: 'POST',
         url: pagina,
         dataType: "text",
         data: {
-            queMuestro: "ELIMINAR_USUARIO",
+            queMuestro: "ELIMINAR_MATERIAL",
             codigoBorrar: codigoBorrar
         },
         async: true
