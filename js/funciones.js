@@ -132,7 +132,7 @@ function AgregarMaterial() {
 	   
 		// var objJsonPaseado = JSON.parse(objJson);
 		
-        // alert(objJsonPaseado.Mensaje);
+        alert(objJson);
         // if (!objJsonPaseado.Exito) {
             // alert(objJsonPaseado.Mensaje);
             // return;
