@@ -6,6 +6,7 @@ function Login() {
     var pagina = "./login.php";
     var usuario = {Email: $("#email").val(), Password: $("#password").val()};
 
+
     if (!validarLogin(usuario)) {
         return false;
     }
@@ -20,7 +21,6 @@ function Login() {
         }
     })
     .then( function (objJson) {
-	
 		
         window.location.href = "index.php";
 	
@@ -46,6 +46,7 @@ function cargarUsuario(perfil) {
         data: { usuario: usuario }
     })
     .then( function (objJson) {    
+        
         var user = JSON.parse(objJson);
 
         $("#email").val(user.mail);

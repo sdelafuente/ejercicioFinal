@@ -8,20 +8,6 @@ $server = new nusoap_server();
 
 $server->configureWSDL('WEB Server Materiales', 'urn:userWS'); 
 
-$server->wsdl->addComplexType(
-    'Material',
-    'complexType',
-    'struct',
-    'all',
-    '',
-    array(
-        'nombre' => array('name' => 'nombre', 'type' => 'xsd:string'),
-        'tipo' => array('name' => 'tipo', 'type' => 'xsd:string'),
-        'precio' => array('name' => 'precio', 'type' => 'xsd:int')
-    )
-);
-
-
 $server->register('Ingresar',                	// METODO
 					array('usuario' => 'xsd:string',
 					'clave' => 'xsd:string', 'correo' => 'xsd:string'),
@@ -51,7 +37,7 @@ $server->register('Baja',
 
 $server->register('Modificar',                	
 					array(
-							'codigo' => 'xsd:string', 
+							'id' => 'xsd:string', 
 							'nombre' => 'xsd:string', 
 							'precio' => 'xsd:string', 
 							'tipo' => 'xsd:string'
@@ -150,13 +136,13 @@ function Baja($id)
 
 /**
 * 
-*
+*   
 * @return	
 * @access	public
 */
-function Modificar($Codigo,$Nombre,$Precio,$Tipo)
+function Modificar($Id,$Nombre,$Precio,$Tipo)
 {
-		$cantidad = Material::Modificar($Codigo,$Nombre,$Precio,$Tipo);
+		$cantidad = Material::Modificar($Id,$Nombre,$Precio,$Tipo);
 		
 		if($cantidad == 1)
 			$Mensaje = "el material fue Updateado correctamente";

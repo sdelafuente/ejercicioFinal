@@ -114,7 +114,7 @@ function AgregarMaterial() {
 	var tipo = $("#cboTipo").val();	
 	var material = {};	
 	
-    material.Codigo = id;
+    material.Id = id;
 	material.Nombre= nombre;
 	material.Precio = precio;
 	material.Tipo= tipo;
@@ -130,13 +130,7 @@ function AgregarMaterial() {
     )
 	.then( function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
 	   
-		// var objJsonPaseado = JSON.parse(objJson);
-		
-        alert(objJson);
-        // if (!objJsonPaseado.Exito) {
-            // alert(objJsonPaseado.Mensaje);
-            // return;
-        // }
+//        alert(objJson);
 
         $("#divAbm").html("");
         MostrarGrilla();
@@ -153,16 +147,15 @@ function ModificarMaterial() {
         return;
     }
 	//si es aceptar
-	//material.accion="Modificar";
-    //alert(material);
+
     var pagina = "./administracion.php";
-    var Codigo = $("#hdnIdMaterial").val();
+    var Id = $("#hdnIdMaterial").val();
 	var Nombre = $("#txtNombre").val();
 	var Precio = $("#txtPrecio").val();
 	var Tipo = $("#cboTipo").val();
 	
 	var material = {};
-    material.Codigo = Codigo;
+    material.Id = Id;
 	material.Nombre= Nombre;
 	material.Precio = Precio;
 	material.Tipo  = Tipo;
@@ -178,14 +171,6 @@ function ModificarMaterial() {
              }
         }).then( function (objJson) {//RECUPERO LA RESPUESTA DEL SERVIDOR EN 'RESULTADO', DE ACUERDO AL DATATYPE.
 	
-		 var objJsonPaseado = JSON.parse(objJson);
-       
-        // if (!objJsonPaseado.Exito) {
-			// MostrarGrilla();
-            // alert(objJsonPaseado.Mensaje);
-            // return;
-        // }
-
         $("#divAbm").html("");
         MostrarGrilla();
 
@@ -231,7 +216,7 @@ function EliminarMaterial(objMaterial) {//#3b
 
     var pagina = "./administracion.php";
 
-    var codigoBorrar = objMaterial.codigo;
+    var codigoBorrar = objMaterial.id;
 	
     $.ajax({
         type: 'POST',

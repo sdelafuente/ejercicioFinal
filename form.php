@@ -5,28 +5,26 @@
 
 
     if (!isset($material)) {//alta
-
-        $Nombre = "";
-        $Precio = "";
-    	$Tipo = "";
-        $Codigo = "";
-        $botonClick = "AgregarMaterial()";
-        $botonTitulo = "Guardar";
+        $Id             = "";
+        $Nombre         = "";
+        $Precio         = "";
+    	$Tipo           = "";
+        $botonClick     = "AgregarMaterial()";
+        $botonTitulo    = "Guardar";
         
     } else {
-
+        $Id     = $material->id;
         $Nombre = $material->nombre;
         $Precio = $material->precio;
-        $Codigo = $material->codigo;
-        $Tipo =   $material->tipo;
+        $Tipo   = $material->tipo;
     	
         if(isset($material->accion)){
-            $botonClick = $material->accion == "Modificar" ? "ModificarMaterial()" : "EliminarMaterial()";    
-            $botonTitulo = $material->accion;
+            $botonClick     = $material->accion == "Modificar" ? "ModificarMaterial()" : "EliminarMaterial()";    
+            $botonTitulo    = $material->accion;
         }
         else {
-            $botonClick = "ModificarMaterial()";    
-            $botonTitulo = "Editar Material";        
+            $botonClick     = "ModificarMaterial()";    
+            $botonTitulo    = "Editar Material";        
         }
     }
 
@@ -35,7 +33,7 @@
 
 ?>
 <div id="divFrm" class="animated bounceInLeft" style="height:330px;overflow:auto;margin-top:0px;border-style:solid">
-    <input type="hidden" id="hdnIdMaterial" value="<?php echo $Codigo; ?>" />
+    <input type="hidden" id="hdnIdMaterial" value="<?php echo $Id; ?>" />
     <input type="text" placeholder="Nombre material" id="txtNombre" value="<?php echo $Nombre; ?>" />
     <input type="text" placeholder="Precio" id="txtPrecio" value="<?php echo $Precio; ?>" />
  

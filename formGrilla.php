@@ -4,11 +4,10 @@
 //{
 
 //require_once("clases/AccesoDatos.php");
-
 require_once("clases/Materiales.php");
 require_once('clases/lib/nusoap.php');
 	
-$host = 'http://localhost:8080/ejercicioFinal/clases/SERVIDOR/wsMateriales.php';
+$host = 'http://localhost/ejercicioFinal/clases/SERVIDOR/wsMateriales.php';
 $client = new nusoap_client($host . '?wsdl');
 
 $arrayDeMateriales=$client->call('ObtenerLosMateriales');
@@ -44,7 +43,7 @@ $miUser = json_decode($user);
 foreach ($arrayDeMateriales as $material) {
 
 	$objMaterial = array();
-	$objMaterial['codigo'] = $material['codigo'];
+	$objMaterial['id'] = $material['id'];
 	$objMaterial['nombre'] = $material['nombre'];
 	$objMaterial['precio'] = $material['precio'];
 	$objMaterial['tipo'] = $material['tipo'];
@@ -55,7 +54,7 @@ foreach ($arrayDeMateriales as $material) {
 	$botones= "<td><a onclick='Modificar($objMaterial)' class='btn btn-warning'> <span class='glyphicon glyphicon-pencil'>&nbsp;</span>Editar</a></td>
 		<td><a onclick='EliminarMaterial($objMaterial)' class='btn btn-danger'>   <span class='glyphicon glyphicon-trash'>&nbsp;</span>  Borrar</a></td>
 			";
-	$grilla = "<td>".$material['codigo']."</td>
+	$grilla = "<td>".$material['id']."</td>
 			   <td>".$material['nombre']."</td>
 			   <td>".$material['precio']."</td>
 			   <td>".$material['tipo']."</td>

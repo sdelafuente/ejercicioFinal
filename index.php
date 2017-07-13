@@ -1,7 +1,7 @@
 <?php
-require_once("verificar_sesion.php");
+    require_once("verificar_sesion.php");
 
-$user = $_SESSION["Usuario"];
+    $user = $_SESSION["Usuario"];
 
 ?>
 <html>
@@ -24,7 +24,6 @@ $user = $_SESSION["Usuario"];
             <div class="page-header">
             <?php
                 $objUser = json_decode($user);
-               //echo "<a class='btn btn-success animated bounceInLeft' href='#' onclick='Enunciado()'><span class='glyphicon glyphicon-home'>&nbsp;</span>Enunciado</a>";
                 
 			    if($objUser->perfil !='invitado')//grilla
 				{ 
@@ -53,7 +52,7 @@ $user = $_SESSION["Usuario"];
             <div id="divAbm"  style='border-style:none;float:left;width:30%'>
 			 <?php
 					if(isset($_COOKIE['user_mail']))
-						//echo $_COOKIE['user_mail'];				
+						echo $_COOKIE['user_mail'];				
                ?>
             </div>
             <div id="divGrilla"  style='border-style:none;float:right;width:70%'>
